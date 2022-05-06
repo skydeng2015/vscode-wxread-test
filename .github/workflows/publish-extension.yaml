@@ -21,7 +21,6 @@ on:
         - minor
         - patch
 
-
 jobs:
   build:
     # if: github.event.inputs.publishExtension=='true'
@@ -38,23 +37,20 @@ jobs:
           node-version: 14.x
           cache: 'yarn'
 
-      - name: Create Tag With Type
-        if: github.event.inputs.releaseVersion!=''
-        id: tag
+      - name: Install Dependencies
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
           git config user.name ${{ secrets.USER_NAME }}
-          yarn install && yarn release --release-as ${{github.event.inputs.releaseVersion}}
-          echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
+          yarn install
 
-      - name: Create Tag Default
-        if: github.event.inputs.releaseVersion==''
+      - if: github.event.inputs.releaseVersion!=''
+        run: yarn release --release-as ${{github.event.inputs.releaseVersion}}
+      - if: github.event.inputs.releaseVersion==''
+        run: yarn release
+
+      - name: Get Release Tag
         id: tag
-        run: |
-          git config user.email ${{ secrets.USER_EMAIL }}
-          git config user.name ${{ secrets.USER_NAME }}
-          yarn install && yarn release
-          echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
+        run: echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
 
       - name: Push Changes
         uses: ad-m/github-push-action@master
