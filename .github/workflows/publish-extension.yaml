@@ -39,7 +39,7 @@ jobs:
           cache: 'yarn'
 
       - name: Create Tag With Type
-        if: github.event.inputs.releaseVersion!==''
+        if: github.event.inputs.releaseVersion!=''
         id: tag
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
