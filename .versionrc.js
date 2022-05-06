@@ -7,10 +7,10 @@ module.exports = {
     { "type": "style", "section": "💄 Styles" },
     { "type": "refactor", "section": "♻️ Code Refactoring" },
     { "type": "perf", "section": "⚡ Performance Improvements" },
-    { "type": "test", "section": "✅ Tests" },
+    { "type": "test", "section": "✅ Tests", "hidden": true },
     { "type": "revert", "section": "⏪ Revert", "hidden": true },
-    { "type": "build", "section": "📦‍ Build System" },
-    { "type": "chore", "section": "🚀 Chore" },
+    { "type": "build", "section": "📦‍ Build System", "hidden": true },
+    { "type": "chore", "section": "🚀 Chore", "hidden": true },
     { "type": "ci", "section": "👷 Continuous Integration", "hidden": true }
   ]
 }
