@@ -41,7 +41,7 @@ jobs:
           tags: true
 
 # Get the release notes. Set a convenient 'id' for accessing later
-      - name: Push Changes
+      - name: Get Release Notes
         uses: yashanand1910/standard-release-notes@v1.2.1
         id: get_release_notes
         with:
@@ -49,7 +49,7 @@ jobs:
           version: ${{ github.ref }} # Required
         # An example of how to access the output
 
-        - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
+      - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
         # body: ${{ steps.get_release_notes.outputs.release_notes }}
 
 
