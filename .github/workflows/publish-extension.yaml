@@ -4,17 +4,17 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      publish_extension:
-        description: '是否发布到 VSCode Marketplace'
-        required: true
-        type: boolean
-        default: 'true'
+  # workflow_dispatch:
+  #   inputs:
+  #     publish_extension:
+  #       description: '是否发布到 VSCode Marketplace'
+  #       required: true
+  #       type: boolean
+  #       default: 'true'
 
 jobs:
   deploy:
-    if: github.event.inputs.publish_extension=='true'
+    # if: github.event.inputs.publish_extension=='true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,15 +39,21 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           tags: true
-      - name: Package Extension
-        run: yarn package
-      - name: Release Extension
-        uses: softprops/action-gh-release@v1
+
+      - name: semver-releaser
+        uses: heyvito/semver-releaser@v0.0.10
         with:
-          tag_name: ${{ steps.tag.outputs.release_tag }}
-          files: "./*.vsix"
-      - name: Publish Extension
-        uses: HaaLeo/publish-vscode-extension@v1
-        with:
-          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-          registryUrl: https://marketplace.visualstudio.com
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Package Extension
+      #   run: yarn package
+      # - name: Release Extension
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     tag_name: ${{ steps.tag.outputs.release_tag }}
+      #     files: "./*.vsix"
+      # - name: Publish Extension
+      #   uses: HaaLeo/publish-vscode-extension@v1
+      #   with:
+      #     pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+      #     registryUrl: https://marketplace.visualstudio.com
