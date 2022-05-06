@@ -40,10 +40,18 @@ jobs:
           branch: ${{ github.ref }}
           tags: true
 
-      - name: semver-releaser
-        uses: heyvito/semver-releaser@v0.0.10
+# Get the release notes. Set a convenient 'id' for accessing later
+      - name: Push Changes
+        uses: yashanand1910/standard-release-notes@v1.2.1
+        id: get_release_notes
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          changelog_path: ./CHANGELOG.md # Optional
+          version: ${{ github.ref }} # Required
+        # An example of how to access the output
+
+        - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
+        # body: ${{ steps.get_release_notes.outputs.release_notes }}
+
 
       # - name: Package Extension
       #   run: yarn package
