@@ -24,7 +24,7 @@ jobs:
       - name: SetUp Node Environment
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 14.x
           cache: 'yarn'
       - name: Create Tag
         id: tag
@@ -45,11 +45,9 @@ jobs:
         uses: yashanand1910/standard-release-notes@v1.2.1
         id: get_release_notes
         with:
-          changelog_path: ./CHANGELOG.md # Optional
           version: ${{ steps.tag.outputs.release_tag }} # Required
-        # An example of how to access the output
-
-      - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
+          # changelog_path: ./CHANGELOG.md # Optional
+      # - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
         # body: ${{ steps.get_release_notes.outputs.release_notes }}
 
 
