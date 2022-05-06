@@ -48,13 +48,13 @@ jobs:
           version: ${{ steps.tag.outputs.release_tag }} # Required
           # changelog_path: ./CHANGELOG.md # Optional
       # - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
+    outputs:
+      RELEASE_TAG:  ${{ build.steps.tag.outputs.release_tag }}
+      RELEASE_NOTES: ${{ build.steps.get_release_notes.outputs.release_notes }}
 
   release:
     runs-on: ubuntu-latest
     needs: [build]
-    env:
-      RELEASE_TAG: ${{ build.steps.tag.outputs.release_tag }}
-      RELEASE_NOTES: ${{ build.steps.get_release_notes.outputs.release_notes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -65,8 +65,8 @@ jobs:
       - name: Release Extension
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: $RELEASE_TAG
-          body: $RELEASE_NOTES
+          tag_name: ${{ needs.build.outputs.RELEASE_TAG }}
+          body: ${{ needs.build.outputs.RELEASE_NOTES }}
 
       #     files: "./*.vsix"
       # - name: Publish Extension
