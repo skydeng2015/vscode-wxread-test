@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.17](https://github.com/LstHeart/vscode-wxread/compare/v0.0.15...v0.0.17) (2022-05-06)
+
+
+### 🚀 Chore
+
+* **release:** null ([714f110](https://github.com/LstHeart/vscode-wxread/commit/714f1105527d29296558f21387e57bc5c55c1d5f))
+
+
+### 🐛 Bug Fixes
+
+* test13 ([1dddc6d](https://github.com/LstHeart/vscode-wxread/commit/1dddc6dcc03f826567463cde1c87420df4638eca))
+* test14 ([25167c4](https://github.com/LstHeart/vscode-wxread/commit/25167c418db3274d60a89f88a7716d29474f2941))
+* test15 ([1698082](https://github.com/LstHeart/vscode-wxread/commit/169808236efeba17d5fac71750a0b28eb8186142))
+* test16 ([74d9e1a](https://github.com/LstHeart/vscode-wxread/commit/74d9e1ae38ffa58f6421b3346b4d79274e4fb70b))
+* test17 ([69deed4](https://github.com/LstHeart/vscode-wxread/commit/69deed424f242c6a116c7fdf757c766f25f77c76))
+* test18 ([6f25f0d](https://github.com/LstHeart/vscode-wxread/commit/6f25f0d6deb852003af4265e4f0d3315d70a467b))
+* test18 ([6ca4c6e](https://github.com/LstHeart/vscode-wxread/commit/6ca4c6ef790163e398863406e5ad151c11250fbe))
+
 ## [0.0.16](https://github.com/LstHeart/vscode-wxread/compare/v0.0.15...v) (2022-05-06)
 
 
