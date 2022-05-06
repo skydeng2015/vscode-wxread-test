@@ -46,7 +46,7 @@ jobs:
         id: get_release_notes
         with:
           changelog_path: ./CHANGELOG.md # Optional
-          version: ${{ github.ref }} # Required
+          version: ${{ steps.tag.outputs.release_tag }} # Required
         # An example of how to access the output
 
       - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
