@@ -38,14 +38,22 @@ jobs:
           node-version: 14.x
           cache: 'yarn'
 
-      - name: Create Tag
-        env:
-          type: github.event.inputs.releaseVersion || 'patch'
+      - name: Create Tag With Type
+        if: github.event.inputs.releaseVersion!==''
         id: tag
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
           git config user.name ${{ secrets.USER_NAME }}
-          yarn install && yarn release --release-as $type
+          yarn install && yarn release --release-as ${{github.event.inputs.releaseVersion}}
+          echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
+
+      - name: Create Tag Default
+        if: github.event.inputs.releaseVersion==''
+        id: tag
+        run: |
+          git config user.email ${{ secrets.USER_EMAIL }}
+          git config user.name ${{ secrets.USER_NAME }}
+          yarn install && yarn release
           echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
 
       - name: Push Changes
