@@ -31,14 +31,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: SetUp Node Environment
         uses: actions/setup-node@v3
         with:
           node-version: 14.x
           cache: 'yarn'
+
       - name: Create Tag
         env:
-          type: ${{github.event.inputs.releaseVersion}} || 'patch'
+          type: github.event.inputs.releaseVersion || 'patch'
         id: tag
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
