@@ -37,11 +37,13 @@ jobs:
           node-version: 14.x
           cache: 'yarn'
       - name: Create Tag
+        env:
+          type: ${{github.event.inputs.releaseVersion}} || 'patch'
         id: tag
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
           git config user.name ${{ secrets.USER_NAME }}
-          yarn install && yarn release --release-as ${{github.event.inputs.releaseVersion}}
+          yarn install && yarn release --release-as $type
           echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
 
       - name: Push Changes
