@@ -51,12 +51,14 @@ jobs:
         # body: ${{ steps.get_release_notes.outputs.release_notes }}
 
 
-      # - name: Package Extension
-      #   run: yarn package
-      # - name: Release Extension
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     tag_name: ${{ steps.tag.outputs.release_tag }}
+      - name: Package Extension
+        run: yarn package
+      - name: Release Extension
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          body: ${{ steps.get_release_notes.outputs.release_notes }}
+
       #     files: "./*.vsix"
       # - name: Publish Extension
       #   uses: HaaLeo/publish-vscode-extension@v1
