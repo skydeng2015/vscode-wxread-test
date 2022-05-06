@@ -23,7 +23,7 @@ on:
 
 jobs:
   build:
-    # if: github.event.inputs.publishExtension=='true'
+    if: github.event.inputs.publishExtension=='true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
