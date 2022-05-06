@@ -4,17 +4,27 @@ on:
   push:
     branches:
       - main
-  # workflow_dispatch:
-  #   inputs:
-  #     publish_extension:
-  #       description: '是否发布到 VSCode Marketplace'
-  #       required: true
-  #       type: boolean
-  #       default: 'true'
+  workflow_dispatch:
+    inputs:
+      publishExtension:
+        description: '是否发布到 VSCode Marketplace'
+        required: true
+        type: boolean
+        default: 'true'
+      releaseVersion:
+        description: 每次发版版本号按哪种规则递增
+        require: true
+        default: 'patch'
+        type: choice
+        options:
+        - major
+        - minor
+        - patch
+
 
 jobs:
   build:
-    # if: github.event.inputs.publish_extension=='true'
+    # if: github.event.inputs.publishExtension=='true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,7 +41,7 @@ jobs:
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
           git config user.name ${{ secrets.USER_NAME }}
-          yarn install && yarn release
+          yarn install && yarn release --release-as ${{github.event.inputs.releaseVersion}}
           echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
 
       - name: Push Changes
