@@ -45,30 +45,20 @@ jobs:
         uses: yashanand1910/standard-release-notes@v1.2.1
         id: get_release_notes
         with:
-          version: ${{ steps.tag.outputs.release_tag }} # Required
+          version: ${{ steps.tag.outputs.release_tag }}
           # changelog_path: ./CHANGELOG.md # Optional
       # - run: echo ${{ steps.get_release_notes.outputs.release_notes }}
-    outputs:
-      RELEASE_TAG:  ${{ steps.tag.outputs.release_tag }}
-      RELEASE_NOTES: ${{ steps.get_release_notes.outputs.release_notes }}
 
-  release:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Package Extension
         run: yarn package
+
       - name: Release Extension
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ needs.build.outputs.RELEASE_TAG }}
-          body: ${{ needs.build.outputs.RELEASE_NOTES }}
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          body: ${{ steps.get_release_notes.outputs.release_notes }}
+          files: "./*.vsix"
 
-      #     files: "./*.vsix"
       # - name: Publish Extension
       #   uses: HaaLeo/publish-vscode-extension@v1
       #   with:
